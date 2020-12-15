@@ -813,7 +813,7 @@ namespace RTC
 			this->tsOffset = tsOffset;
 
 			// Sync our RTP stream's sequence number.
-			this->rtpSeqManager.Sync(packet->GetSequenceNumber() - 1);
+			this->rtpSeqManager.Sync(packet->GetSequenceNumber() - 1, !this->lastSentPacketHasMarker);
 
 			this->encodingContext->SyncRequired();
 
@@ -891,6 +891,8 @@ namespace RTC
 		// Process the packet.
 		if (this->rtpStream->ReceivePacket(packet))
 		{
+			this->lastSentPacketHasMarker = packet->HasMarker();
+
 			// Send the packet.
 			this->listener->OnConsumerSendRtpPacket(this, packet);
 

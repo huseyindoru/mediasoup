@@ -40,11 +40,12 @@ namespace RTC
 	}
 
 	template<typename T>
-	void SeqManager<T>::Sync(T input)
+	void SeqManager<T>::Sync(T input, bool skip)
 	{
 		// Update base.
 		this->base = this->maxOutput - input;
-
+		if (skip)
+			this->base += 1;
 		// Update maxInput.
 		this->maxInput = input;
 

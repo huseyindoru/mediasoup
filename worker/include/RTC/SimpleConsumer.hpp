@@ -75,6 +75,7 @@ namespace RTC
 		RTC::RtpStream* producerRtpStream{ nullptr };
 		bool keyFrameSupported{ false };
 		bool syncRequired{ false };
+		bool lastSentPacketHasMarker{ false };
 		RTC::SeqManager<uint16_t> rtpSeqManager;
 		bool managingBitrate{ false };
 	};
